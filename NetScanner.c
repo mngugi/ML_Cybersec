@@ -10,12 +10,11 @@ void packet_handler(u_char *user, const struct pcap_pkthdr *pkthdr, const u_char
     struct ip *ip_header = (struct ip *)(packet + 14); // Skip Ethernet header
     struct tcphdr *tcp_header = (struct tcphdr *)(packet + 14 + ip_header->ip_hl * 4);
 
-    printf("Captured a packet:\n");
-    printf("Source IP: %s\n", inet_ntoa(ip_header->ip_src));
-    printf("Destination IP: %s\n", inet_ntoa(ip_header->ip_dst));
-    printf("Source port: %d\n", ntohs(tcp_header->th_sport));
-    printf("Destination port: %d\n", ntohs(tcp_header->th_dport));
-    printf("\n");
+    printf("%-20s %-20s %-10d %-10d\n",
+           inet_ntoa(ip_header->ip_src),
+           inet_ntoa(ip_header->ip_dst),
+           ntohs(tcp_header->th_sport),
+           ntohs(tcp_header->th_dport));
 }
 
 int main() {
@@ -45,6 +44,10 @@ int main() {
         pcap_freealldevs(alldevs);
         return 1;
     }
+
+    // Print table header
+    printf("%-20s %-20s %-10s %-10s\n", "Source IP", "Destination IP", "Src Port", "Dst Port");
+    printf("%-20s %-20s %-10s %-10s\n", "---------", "-------------", "--------", "--------");
 
     // Capture packets
     pcap_loop(handle, 10, packet_handler, NULL);

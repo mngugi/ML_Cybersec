@@ -19,23 +19,31 @@ void packet_handler(u_char *user, const struct pcap_pkthdr *pkthdr, const u_char
 }
 
 int main() {
-    char *dev;
     char errbuf[PCAP_ERRBUF_SIZE];
     pcap_t *handle;
+    pcap_if_t *alldevs, *d;
 
-    // Find a device to capture on
-    dev = pcap_lookupdev(errbuf);
-    if (dev == NULL) {
-        fprintf(stderr, "Couldn't find default device: %s\n", errbuf);
-        return 2;
+    // Find all devices
+    if (pcap_findalldevs(&alldevs, errbuf) == -1) {
+        fprintf(stderr, "Error finding devices: %s\n", errbuf);
+        return 1;
     }
-    printf("Device: %s\n", dev);
+
+    // Use the first device found
+    if (alldevs == NULL) {
+        fprintf(stderr, "No devices found\n");
+        return 1;
+    }
+
+    d = alldevs;
+    printf("Using device: %s\n", d->name);
 
     // Open the device for capturing
-    handle = pcap_open_live(dev, BUFSIZ, 1, 1000, errbuf);
+    handle = pcap_open_live(d->name, BUFSIZ, 1, 1000, errbuf);
     if (handle == NULL) {
-        fprintf(stderr, "Couldn't open device %s: %s\n", dev, errbuf);
-        return 2;
+        fprintf(stderr, "Couldn't open device %s: %s\n", d->name, errbuf);
+        pcap_freealldevs(alldevs);
+        return 1;
     }
 
     // Capture packets
@@ -43,6 +51,7 @@ int main() {
 
     // Close the handle
     pcap_close(handle);
+    pcap_freealldevs(alldevs);
 
     return 0;
 }

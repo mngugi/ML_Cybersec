@@ -1,6 +1,6 @@
 from PIL import Image
 
-def calculate_image_size(/home/x1869/Pictures/faketwitter.png):
+def calculate_image_size(image_path):
     # Open the image file
     with Image.open(image_path) as img:
         # Get image dimensions
@@ -15,7 +15,7 @@ def calculate_image_size(/home/x1869/Pictures/faketwitter.png):
         return width, height, num_pixels, num_channels, total_bytes
 
 # Specify the path to your image file
-image_path = 'path/to/your/image.jpg'
+image_path = '/home/x1869/Pictures/faketwitter.png'
 
 # Get the image size information
 width, height, num_pixels, num_channels, total_bytes = calculate_image_size(image_path)

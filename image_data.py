@@ -15,7 +15,7 @@ def calculate_image_size(image_path):
         return width, height, num_pixels, num_channels, total_bytes
 
 # Specify the path to your image file
-image_path = '/home/x1869/Pictures/faketwitter.png'
+image_path = '/####/xxxxx/Pictures/faketwitter.png'
 
 # Get the image size information
 width, height, num_pixels, num_channels, total_bytes = calculate_image_size(image_path)

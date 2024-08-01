@@ -32,8 +32,8 @@ def check_pdf_for_binary_data(pdf_path):
 
 if __name__ == "__main__":
     if len(sys.argv) != 2:
-        print("Usage: python check_pdf_binary.py home/x1869/Downloads/D34DM0053_Open_Letter_Mental_Health.pdf")
+        print("Usage: python check_pdf_binary.py D34DM0053_Open_Letter_Mental_Health.pdf")
     else:
         pdf_path = sys.argv[1]
-        check_pdf_for_binary_data(home/x1869/Downloads/D34DM0053_Open_Letter_Mental_Health.pdf)
+        check_pdf_for_binary_data(D34DM0053_Open_Letter_Mental_Health.pdf)
 

@@ -35,5 +35,5 @@ if __name__ == "__main__":
         print("Usage: python check_pdf_binary.py home/x1869/Downloads/D34DM0053_Open_Letter_Mental_Health.pdf")
     else:
         pdf_path = sys.argv[1]
-        check_pdf_for_binary_data(/home/x1869/Downloads/D34DM0053_Open_Letter_Mental_Health.pdf)
+        check_pdf_for_binary_data(home/x1869/Downloads/D34DM0053_Open_Letter_Mental_Health.pdf)
 

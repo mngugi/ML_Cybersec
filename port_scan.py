@@ -1,5 +1,5 @@
-Python 3.10.12 (main, Jul 29 2024, 16:56:48) [GCC 11.4.0] on linux
-Type "help", "copyright", "credits" or "license()" for more information.
+#Python 3.10.12 (main, Jul 29 2024, 16:56:48) [GCC 11.4.0] on linux
+#Type "help", "copyright", "credits" or "license()" for more information.
 import socket
 import random
 

@@ -1,6 +1,5 @@
 import random
 
-
 # Simulated functions for malware detection and removal
 def detect_malware():
     # Simulate detection of a random number of malware files

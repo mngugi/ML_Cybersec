@@ -7,8 +7,8 @@ nmap_lib = CDLL('./nmap_wrapper.so')
 nmap_lib.run_nmap_script.argtypes = [c_char_p, c_char_p]
 
 # Function to wrap around the C function
-def run_nmap(target, script):
-    nmap_lib.run_nmap_script(target.encode('utf-8'), script.encode('utf-8'))
+def run_nmap(target, script, options=""):
+    nmap_lib.run_nmap_script(target.encode('utf-8'), script.encode('utf-8'),options.encode('utf-8'))
 
 # Example usage
 if __name__ == "__main__":
@@ -21,7 +21,7 @@ if __name__ == "__main__":
     run_nmap(target, script, options)
     
     print(f"Running Nmap script '{script}' on target '{target}'...")
-    run_nmap(target, script)
+    run_nmap(target, script,options)
 
     # 2: Run a script to detect SSH host keys
     script = "ssh-hostkey"

@@ -22,7 +22,7 @@ and a script name, then constructs and executes the Nmap command using the syste
 
 void run_nmap_script(const char* target, const char* script, const char* options ) {
     char command[512];
-    snprintf(command, sizeof(command), "nmap %s --script=%s %s",options,script,target);
+    snprintf(command, sizeof(command), "nmap %s --script=%s %s", options, script, target);
     system(command);
 
 

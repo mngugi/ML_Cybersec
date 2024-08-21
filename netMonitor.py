@@ -1,15 +1,16 @@
-from scapy.all import sniff, IP, TCP
+import ctypes
 
-# Function to process captured packets
-def packet_callback(packet):
-    if IP in packet:
-        ip_src = packet[IP].src
-        ip_dst = packet[IP].dst
-        if ip_dst == "127.0.0.1":
-            print(f"Potential scan detected! Source: {ip_src} -> Destination: {ip_dst}")
-            with open("forensic_log.txt", "a") as log_file:
-                log_file.write(f"Potential scan detected! Source: {ip_src} -> Destination: {ip_dst}\n")
+# Load the shared library
+network_monitor = ctypes.CDLL('./network_monitor.so')
 
-# Capture only TCP packets
-sniff(filter="tcp", prn=packet_callback, store=0)
+# Specify the argument types
+network_monitor.monitor_network.argtypes = [ctypes.c_char_p]
+
+# Call the network monitoring function with the desired interface
+def start_monitoring(interface="eth0"):
+    network_monitor.monitor_network(interface.encode('utf-8'))
+
+# Example usage
+if __name__ == "__main__":
+    start_monitoring("eth0")  # Replace "eth0" with your actual network interface
 

@@ -12,7 +12,7 @@ def run_nmap(target, script, options=""):
 
 # Example usage with more advanced Nmap scripts
 if __name__ == "__main__":
-    target = "127.0.0.1"  # Replace with the target IP or hostname
+    target = "192.168.100.8"  # Replace with the target IP or hostname
 
     # Scan all 65,535 ports with an advanced Nmap script
     script = "http-vuln-*"

@@ -7,7 +7,20 @@
 #include <linux/if_ether.h>
 #include <unistd.h>
 
-// Ensure the function is properly exported
+// Function to print the IP header details
+void print_ip_header(struct iphdr *ip_header) {
+    struct in_addr src, dest;
+    src.s_addr = ip_header->saddr;
+    dest.s_addr = ip_header->daddr;
+
+    printf("IP Header Information:\n");
+    printf("   |-Source IP        : %s\n", inet_ntoa(src));
+    printf("   |-Destination IP   : %s\n", inet_ntoa(dest));
+    printf("   |-Protocol         : %d\n", (unsigned int)ip_header->protocol);
+    printf("   |-Packet Length    : %d\n", ntohs(ip_header->tot_len));
+}
+
+// Function to monitor the network
 void monitor_network() {
     int sock_raw;
     struct sockaddr saddr;
@@ -29,14 +42,9 @@ void monitor_network() {
             return;
         }
 
-        // Process the packet (for simplicity, just print some data)
+        // Process the IP packet
         struct iphdr *ip_header = (struct iphdr *)(buffer + sizeof(struct ethhdr));
-        struct in_addr src, dest;
-        src.s_addr = ip_header->saddr;
-        dest.s_addr = ip_header->daddr;
-
-        printf("Source IP: %s\n", inet_ntoa(src));
-        printf("Destination IP: %s\n", inet_ntoa(dest));
+        print_ip_header(ip_header);
     }
 
     close(sock_raw);

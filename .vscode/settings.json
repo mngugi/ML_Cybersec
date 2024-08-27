@@ -1,3 +1,6 @@
 {
-    "wolf.disableHotModeWarning": true
+    "wolf.disableHotModeWarning": true,
+    "python.analysis.extraPaths": [
+        "./Reddit_"
+    ]
 }

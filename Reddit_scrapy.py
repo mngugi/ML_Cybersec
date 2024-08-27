@@ -8,7 +8,7 @@ class RedditJobSpider(scrapy.Spider):
     
     
     allowed_domains = ['reddit.com']
-    start_urls = ['http://wwww.reddit.com/r/funny/']
+    start_urls = ['https://www.reddit.com/t/animals_and_pets/']
     
     
     def parse(self, response):
@@ -16,6 +16,6 @@ class RedditJobSpider(scrapy.Spider):
     
         print (response.css("a.title::text").extract())
         print (response.css("a.title::attr(href)").extract())
-        print (response.css("div.score.unvoted::attr(title)").extract())
+        print (response.css("div.score.unnoted::attr(title)").extract())
         
     

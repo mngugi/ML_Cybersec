@@ -2,7 +2,7 @@ from typing import Any
 import scrapy
 from scrapy.http import Response
 
-from reddit.reddit import RedditItem 
+from reddit import RedditItem 
 
 class RedditJobSpider(scrapy.Spider):
     

@@ -1,29 +1,20 @@
 #!/bin/bash
 
 # Author: Peter Mwangi Ngugi
-# This is a bash script program to install a Security lab on Pop!_OS
+# A bash script to install a Security lab on Pop!_OS
 
-# Ensure script is run with superuser privileges
+LOGFILE="/var/log/security_lab_install.log"
+echo "Installation started at $(date)" | tee -a "$LOGFILE"
+
+# Ensure script is run as root
 if [ "$EUID" -ne 0 ]; then
-  echo "Please run as root or use sudo for package installations."
+  echo "Please run as root."
   exit 1
 fi
-
-# Trap to handle script interruption
-trap "echo 'Script interrupted. Cleaning up...'; exit 1" SIGINT SIGTERM
-
-# Log file for recording errors
-LOGFILE="/var/log/security_lab_install.log"
-echo "Starting installation..." | tee -a "$LOGFILE"
-echo "Installation started at $(date)" | tee -a "$LOGFILE"
 
 # Update system packages
 echo "Updating system packages..." | tee -a "$LOGFILE"
 apt update && apt upgrade -y >> "$LOGFILE" 2>&1
-if [ $? -ne 0 ]; then
-  echo "System update failed. Check $LOGFILE for details." | tee -a "$LOGFILE"
-  exit 1
-fi
 
 # Function to install a package
 install_package() {
@@ -39,107 +30,106 @@ install_package() {
   fi
 }
 
-# Install necessary security tools
-echo "Installing security packages..." | tee -a "$LOGFILE"
+# Function to handle manual installation from source
+install_from_source() {
+  local repo_url=$1
+  local folder_name=$2
+  echo "Attempting to install $folder_name from source..." | tee -a "$LOGFILE"
+  
+  apt install -y git build-essential libssl-dev >> "$LOGFILE" 2>&1
+  
+  git clone "$repo_url" "$folder_name" >> "$LOGFILE" 2>&1
+  cd "$folder_name"
+  
+  if make && sudo make install >> "$LOGFILE" 2>&1; then
+    echo "$folder_name installed successfully from source." | tee -a "$LOGFILE"
+  else
+    echo "Error installing $folder_name from source. Check $LOGFILE for details." | tee -a "$LOGFILE"
+    return 1
+  fi
 
+  cd ..
+  rm -rf "$folder_name"
+}
+
+# Installing security tools
 declare -A PACKAGES=(
   [etherape]="Graphical network monitor"
-  [ettercap-graphical]="Suite for man-in-the-middle attacks"
+  [ettercap-graphical]="Man-in-the-middle attack tool"
   [wireshark]="Network traffic analyzer"
-  [medusa]="Login brute-forcer"
-  [nmap]="Network discovery and security auditing tool"
-  [scap-workbench]="SCAP scanner with GUI"
-  [skipfish]="Active web application security reconnaissance tool"
-  [yersinia]="Exploit weaknesses in network protocols"
-  [hydra]="Login cracker supporting various protocols"
+  [medusa]="Brute-force login cracker"
+  [nmap]="Network discovery tool"
+  [scap-workbench]="SCAP scanner"
+  [skipfish]="Web security reconnaissance tool"
+  [yersinia]="Network protocol weakness exploiter"
+  [hydra]="Powerful login cracker"
   [aircrack-ng]="Wireless network security toolset"
   [john]="Password cracker"
   [nikto]="Web server scanner"
+  [metasploit-framework]="Penetration testing framework"
   [ncrack]="Network authentication cracker"
-  [burpsuite]="Web vulnerability scanning tool"
-  [hashcat]="GPU-based password cracking tool"
+  [gobuster]="Directory/file/DNS subdomain brute-forcer"
+  [openvas]="Vulnerability scanner"
   [lynis]="Security auditing tool"
   [tcpdump]="Network packet analyzer"
-  [gobuster]="Brute-forcer for directories, files, and DNS subdomains"
-  [openvas]="Vulnerability scanner"
 )
 
-# Loop through packages and install each one
+# Install security packages
 for package in "${!PACKAGES[@]}"; do
   install_package "$package" "${PACKAGES[$package]}"
 done
 
-# Install sqlninja (try from repo, if fails install from source)
-install_package sqlninja "Tool to test SQL Injection vulnerabilities" || {
-  echo "Attempting to install sqlninja from source..." | tee -a "$LOGFILE"
-  
-  # Install dependencies for sqlninja
-  apt install -y libnet1 libnet1-dev libpcap-dev libpq-dev libssl-dev build-essential git >> "$LOGFILE" 2>&1
-  
-  # Clone and install from source
-  git clone https://github.com/sqlninja/sqlninja.git >> "$LOGFILE" 2>&1
-  cd sqlninja
-  make >> "$LOGFILE" 2>&1
-  sudo make install >> "$LOGFILE" 2>&1
-  
-  if [ $? -eq 0 ]; then
-    echo "sqlninja installed successfully from source." | tee -a "$LOGFILE"
-  else
-    echo "Error installing sqlninja from source. Check $LOGFILE for details." | tee -a "$LOGFILE"
-    exit 1
-  fi
-  
-  cd ..
-  rm -rf sqlninja
+# SQLNinja installation: Install via apt or from source
+install_package sqlninja "SQL Injection testing tool" || {
+  echo "Attempting manual installation of sqlninja from source..." | tee -a "$LOGFILE"
+  install_from_source "https://github.com/sqlninja/sqlninja.git" "sqlninja"
 }
 
-# Install additional dependencies for pwntools
-echo "Installing additional dependencies for pwntools..." | tee -a "$LOGFILE"
-apt install -y python3 python3-pip python3-dev git libssl-dev libffi-dev build-essential >> "$LOGFILE" 2>&1
-if [ $? -ne 0 ]; then
-  echo "Failed to install dependencies. Check $LOGFILE for details." | tee -a "$LOGFILE"
-  exit 1
-fi
+# Skipfish manual installation if apt fails
+install_package skipfish "Web security reconnaissance tool" || {
+  echo "Attempting manual installation of skipfish from source..." | tee -a "$LOGFILE"
+  apt install -y libssl-dev libidn11-dev libpcre3-dev >> "$LOGFILE" 2>&1
+  git clone https://github.com/spinkham/skipfish.git >> "$LOGFILE" 2>&1
+  cd skipfish
+  make >> "$LOGFILE" 2>&1
+  sudo make install >> "$LOGFILE" 2>&1
+  if [ $? -eq 0 ]; then
+    echo "Skipfish installed successfully from source." | tee -a "$LOGFILE"
+  else
+    echo "Error installing Skipfish from source." | tee -a "$LOGFILE"
+  fi
+  cd ..
+  rm -rf skipfish
+}
 
-# Upgrade pip and install pwntools
-python3 -m pip install --upgrade pip >> "$LOGFILE" 2>&1
-python3 -m pip install --upgrade pwntools >> "$LOGFILE" 2>&1
-if [ $? -ne 0 ]; then
-  echo "Failed to install pwntools. Check $LOGFILE for details." | tee -a "$LOGFILE"
-  exit 1
-fi
-
-# ---- METASPLOIT INSTALLATION WITHOUT ROOT ISSUES ----
-
-# Install Metasploit using the Metasploit installer
-echo "Installing Metasploit..." | tee -a "$LOGFILE"
-METASPLOIT_INSTALLER_URL="https://raw.githubusercontent.com/rapid7/metasploit-omnibus/master/config/templates/metasploit-framework-wrappers/msfupdate"
-curl -sSL "$METASPLOIT_INSTALLER_URL" | bash >> "$LOGFILE" 2>&1
-
-if [ $? -ne 0 ]; then
-  echo "Failed to install Metasploit. Check $LOGFILE for details." | tee -a "$LOGFILE"
-  exit 1
-fi
-
-# Set up Metasploit database as a non-root user
-echo "Setting up Metasploit database..." | tee -a "$LOGFILE"
-if sudo -u "$SUDO_USER" msfdb init >> "$LOGFILE" 2>&1; then
-  echo "Metasploit database initialized successfully." | tee -a "$LOGFILE"
+# BurpSuite Installation (Manual download)
+echo "Installing BurpSuite..." | tee -a "$LOGFILE"
+BURP_URL="https://portswigger.net/burp/releases/download?product=community&version=2023.7.1&type=linux"
+wget -O burpsuite.sh "$BURP_URL" >> "$LOGFILE" 2>&1
+chmod +x burpsuite.sh
+./burpsuite.sh >> "$LOGFILE" 2>&1
+if [ $? -eq 0 ]; then
+  echo "BurpSuite installed successfully." | tee -a "$LOGFILE"
 else
-  echo "Failed to initialize Metasploit database. Check $LOGFILE for details." | tee -a "$LOGFILE"
-  exit 1
+  echo "Error installing BurpSuite. Check $LOGFILE for details." | tee -a "$LOGFILE"
 fi
 
-# Post-installation configuration for Wireshark
+# Configure Wireshark (Add user to group)
 echo "Configuring Wireshark..." | tee -a "$LOGFILE"
-if usermod -aG wireshark "$SUDO_USER" >> "$LOGFILE" 2>&1; then
+if usermod -aG wireshark "$SUDO_USER"; then
   echo "Wireshark configured successfully. Please log out and log back in for group changes to take effect." | tee -a "$LOGFILE"
 else
-  echo "Failed to configure Wireshark. Check $LOGFILE for details." | tee -a "$LOGFILE"
+  echo "Failed to configure Wireshark." | tee -a "$LOGFILE"
 fi
 
-echo "All installations and configurations are complete. Check $LOGFILE for any errors." | tee -a "$LOGFILE"
-echo "Installation completed at $(date)" | tee -a "$LOGFILE"
+# Install Metasploit
+echo "Installing Metasploit..." | tee -a "$LOGFILE"
+curl https://raw.githubusercontent.com/rapid7/metasploit-omnibus/master/config/templates/metasploit-framework-wrappers/msfupdate | bash >> "$LOGFILE" 2>&1
+if msfdb init; then
+  echo "Metasploit database initialized successfully." | tee -a "$LOGFILE"
+else
+  echo "Error initializing Metasploit database." | tee -a "$LOGFILE"
+fi
 
-# End of script
+echo "All installations and configurations are complete. Check $LOGFILE for details."
 

@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Author: Peter Mwangi Ngugi
-# This is a bash script program to install a Security lab on Fedora OS
+# This is a bash script program to install Security lab tools on Fedora OS!
 
 # Ensure script is run with superuser privileges
 if [ "$EUID" -ne 0 ]; then

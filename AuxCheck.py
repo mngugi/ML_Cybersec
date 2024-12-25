@@ -1,3 +1,4 @@
+# program checks sound devices plugged into the computer
 import sounddevice as sd
 
 def list_audio_devices():

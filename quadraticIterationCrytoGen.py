@@ -1,3 +1,11 @@
+import pyfiglet # type: ignore
+
+def display_title(title):
+    ascii_art = pyfiglet.figlet_format(title)
+    print(ascii_art)
+
+if __name__ == "__main__":
+    display_title("Generates a cryptographic sequence")
 def quadratic_iteration(seed, c, p, length):
     """
     Generates a cryptographic sequence using quadratic iteration.

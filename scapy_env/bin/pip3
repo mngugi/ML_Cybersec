@@ -1,4 +1,4 @@
-#!/home/x1869/Documents/GitHub/ML_Cybersec/scapy_env/bin/python3
+#!/home/sigma69/Documents/GitHub/ML_Cybersec/scapy_env/bin/python
 # -*- coding: utf-8 -*-
 import re
 import sys

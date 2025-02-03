@@ -2,6 +2,7 @@ import secrets
 import string
 import pyfiglet # type: ignore
 
+
 def display_title(title):
     ascii_art = pyfiglet.figlet_format(title)
     print(ascii_art)

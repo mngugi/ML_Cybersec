@@ -1,5 +1,100 @@
 Welcome to the ML_Cybersec wiki!
+***
+# ML_Cybersec
 
+**ML_Cybersec** is a collection of machine learning implementations focused on cybersecurity use cases. This repository explores how supervised and unsupervised learning can be applied to detect threats, classify attacks, and enhance defensive strategies in modern digital environments.
+
+---
+
+## 📁 Project Scope
+
+This repository includes:
+
+- 🔍 **Anomaly Detection** – Unsupervised learning for intrusion detection
+- 🛡️ **Malware Classification** – ML models trained on malware behavior/data
+- 🌐 **Network Traffic Analysis** – Feature extraction and classification of network flows
+- 📊 **Visualization Tools** – For exploring datasets and model predictions
+- 🔧 **Model Evaluation Pipelines** – Accuracy, confusion matrix, ROC, etc.
+
+---
+
+## 🚀 Getting Started
+
+1. Clone the repository:
+
+   ```bash
+   git clone https://github.com/mngugi/ML_Cybersec.git
+   cd ML_Cybersec
+   ```
+
+2. (Optional) Create a virtual environment:
+
+   ```bash
+   python -m venv venv
+   source venv/bin/activate
+   ```
+
+3. Install dependencies:
+
+   ```bash
+   pip install -r requirements.txt
+   ```
+
+4. Run a notebook or script inside `notebooks/` or `models/`:
+
+   ```bash
+   jupyter notebook
+   ```
+
+---
+
+## 🧪 Notebooks & Scripts
+
+- `notebooks/Anomaly_Detection.ipynb` – Isolation Forest and One-Class SVM
+- `notebooks/Malware_Classifier.ipynb` – Using Random Forest and XGBoost
+- `notebooks/Traffic_Feature_Extraction.ipynb` – Parsing PCAP or NetFlow datasets
+- `models/train_model.py` – CLI training for selected datasets
+
+---
+
+## 📚 Datasets Used
+
+Some examples include:
+- NSL-KDD
+- CICIDS 2017
+- Custom malware samples
+
+*Note: Datasets not bundled due to size. See `data/README.md` for download links.*
+
+---
+
+## 🔍 Features & Techniques
+
+- Feature engineering (e.g., packet size stats, flags)
+- Label encoding and normalization
+- Train/test split, cross-validation
+- Confusion matrix, ROC-AUC, precision-recall
+- Model export via `joblib`
+
+---
+
+## 🤝 Contributing
+
+Contributions are welcome! You can:
+- Improve or optimize models
+- Add support for new datasets
+- Suggest new detection techniques
+
+Fork the repo and open a pull request when ready.
+
+---
+
+## 📄 License
+
+This project is licensed under the MIT License.
+
+
+***
 
 ## Steps to Insert Code in Developer Tools:
 

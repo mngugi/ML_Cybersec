@@ -93,7 +93,6 @@ Fork the repo and open a pull request when ready.
 
 This project is licensed under the MIT License.
 
-
 ***
 
 ## Steps to Insert Code in Developer Tools:
@@ -178,6 +177,6 @@ If your site ever uses external resources (e.g., Google Fonts, CDN libraries), y
 **7. Anti-CSRF Tokens (If applicable)**
 For forms and any user input that modifies server-side data, implement Cross-Site Request Forgery (CSRF) protection by generating and validating CSRF tokens.
 
-
+---
 
 

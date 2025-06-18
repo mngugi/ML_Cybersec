@@ -159,7 +159,6 @@ If you're using cookies for session management in the future, ensure they are se
 
 Set-Cookie: sessionId=abc123; HttpOnly; Secure; SameSite=Strict;
 
-
 ```
 **5. JavaScript Best Practices**
 Strict Mode: You already have `'use strict';` in place, which is great. This helps catch common coding mistakes and unsafe actions.

@@ -76,7 +76,7 @@ Some examples include:
 - Confusion matrix, ROC-AUC, precision-recall
 - Model export via `joblib`
 
----
+***
 
 ## 🤝 Contributing
 

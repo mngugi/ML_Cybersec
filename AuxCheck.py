@@ -6,7 +6,7 @@ def list_audio_devices():
     devices = sd.query_devices()
     for i, device in enumerate(devices):
         print(f"{i}: {device['name']} (Channels: {device['max_input_channels']} in / {device['max_output_channels']} out)")
-
+# create a function check_speaker 
 def check_speaker_output():
     print("\nTesting speaker output... (Ensure volume is turned up)")
     try:

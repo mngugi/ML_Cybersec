@@ -1,3 +1,4 @@
+# a program to generate crytographic sequence 
 import pyfiglet # type: ignore
 
 def display_title(title):

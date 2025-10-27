@@ -1,3 +1,5 @@
+# crytographic sequence 
+
 import secrets
 import string
 import pyfiglet # type: ignore

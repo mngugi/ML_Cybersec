@@ -33,15 +33,16 @@ This repository includes:
    ```bash
    python -m venv venv
    source venv/bin/activate
+
    ```
 
-3. Install dependencies:
+4. Install dependencies:
 
    ```bash
    pip install -r requirements.txt
    ```
 
-4. Run a notebook or script inside `notebooks/` or `models/`:
+5. Run a notebook or script inside `notebooks/` or `models/`:
 
    ```bash
    jupyter notebook

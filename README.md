@@ -115,7 +115,6 @@ Code:
 
 alert("Hello, Some code inserted! 👍🏿 ");
 
-
 ```
 
 ---

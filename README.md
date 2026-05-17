@@ -76,7 +76,7 @@ Some examples include:
 - Label encoding and normalization
 - Train/test split, cross-validation
 - Confusion matrix, ROC-AUC, precision-recall
-- Model export via `joblib`
+- Model export via `joblib.`
 
 ***
 

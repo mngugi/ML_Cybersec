@@ -1,6 +1,6 @@
-**Welcome to the ML_Cybersec wiki!**
+# Welcome to the ML_Cybersec wiki!
 ***
-# ML_Cybersec
+## ML_Cybersec
 
 **ML_Cybersec** is a collection of machine learning implementations focused on cybersecurity use cases. This repository explores how supervised and unsupervised learning can be applied to detect threats, classify attacks, and enhance defensive strategies in modern digital environments.
 

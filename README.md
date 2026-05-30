@@ -46,7 +46,9 @@ This repository includes:
 5. Run a notebook or script inside `notebooks/` or `models/`:
 
    ```bash
+   
    jupyter notebook
+   
    ```
 
 ---

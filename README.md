@@ -40,7 +40,9 @@ This repository includes:
 4. Install dependencies:
 
    ```bash
+   
    pip install -r requirements.txt
+   
    ```
 
 5. Run a notebook or script inside `notebooks/` or `models/`:

@@ -31,6 +31,7 @@ This repository includes:
 2. (Optional) Create a virtual environment:
 
    ```bash
+   
    python -m venv venv
    source venv/bin/activate
 

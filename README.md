@@ -106,7 +106,7 @@ This project is licensed under the MIT License.
 
 **Open Developer Tools:**
 
-Right-click anywhere **on the `webpage` and select `Inspect or press Ctrl+Shift+I (Windows/Linux) or Cmd+Option+I (Mac).`**
+Right-click anywhere **on the `webpage` and select `Inspect or press Ctrl+Shift+I (Windows/Linux) or Cmd+Option+I (Mac).
 **Go to the Console:**
 
 Once the Developer Tools are open, navigate to the Console tab.
@@ -116,7 +116,7 @@ You can type or paste JavaScript code into the console and press Enter to run it
 
 Code: 
 
-```js
+``` js
 
 alert("Hello, Some code inserted! 👍🏿 ");
 
@@ -148,7 +148,7 @@ To prevent Cross-Site Scripting (XSS), make sure you sanitize and validate all u
 Avoid using `innerHTML` for content insertion as it may expose you to XSS attacks. Use `textContent or innerText` instead for plain text insertion.
 **Example:**
 
-```js
+``` js
 
 document.getElementById('msg').textContent = 'Current tasks:';
 

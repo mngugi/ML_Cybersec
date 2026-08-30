@@ -107,7 +107,7 @@ This project is licensed under the MIT License.
 
 **Open Developer Tools:**
 
-Right-click anywhere **on the `webpage` and select `Inspect or press Ctrl+Shift+I (Windows/Linux) or Cmd+Option+I (Mac).
+**Right-click anywhere** on the `webpage` and select `Inspect or press Ctrl+Shift+I (Windows/Linux) or Cmd+Option+I (Mac).
 **Go to the Console:**
 
 Once the Developer Tools are open, navigate to the Console tab.
